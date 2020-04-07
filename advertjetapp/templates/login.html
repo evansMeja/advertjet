@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+{%block content%}
+
+<h4 id="result" class="log jumbotron">Subscribe to Email Alerts</h4>
+<div class="container">
+<div class="form-box">
+<form id="myform" class="form-horizontal" role="form" method="POST" action='{% url "validatemylogin"%}'>
+{%csrf_token%}
+    <div class="form-group">
+      <label for="name">Enter Name</label>
+      <input class="form-control" type="text" id="name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="name">Enter Email</label>
+      <input class="form-control" type="email" id="email" name="email">
+    </div>
+    <input class="btn btn-primary" id="login" style="background:orange" type="submit" value="Finish" />
+  </form>
+</div>
+</div>
+
+
+<script>
+$("#myform").submit(function (e) {	
+    e.preventDefault();
+	var email = $("#email").val();
+	var name = $("#name").val();
+	
+	if(email.length == 0 || name.length == 0){
+	$("#result").html("All Fields are required!");
+	return;
+	}
+	
+	
+	$.ajax({
+		url : $(this).attr('action'),
+		type : $(this).attr('method'),
+		data : $(this).serialize(),
+		success : function(json){
+			if(json.email_exists){
+			$("#result").html("Email Already exists sorry");
+			}else{
+			if(json.is_saved){
+				$("#result").html("Data Saved");
+				window.location.href="/";
+			}else{
+				$("#result").html("Data Not Saved");	  
+			}			
+			}
+		},
+		error : function(xhr,errmsg,err) {
+		  $('#result').html(errmsg);
+		}
+});
+});
+</script>
+{%endblock content%}
+
+

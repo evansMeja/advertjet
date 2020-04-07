@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{%block content%}
+<div style="text-align:center">
+<a href="https://dashboard.templerfx.com/login/sign_up/392946"><img src="https://dashboard.templerfx.com/banners/en/970-90.png"></a>
+</div>
+<div class="row">
+<div class="col-10 col-md-10 col-sm-10">
+{%if Post_list%}
+{%for x in Post_list%}
+<hr/>
+<div class="row">
+<div class="col-4 col-md-6">
+<div class="row"><div class="col-12 col-md-12"><h4 class="well">{{x.Title}}</h4></div></div>
+<div class="row"><div class="col-12 col-md-12">{{ x.Body|truncatechars:255 }}<a href="#"> read more</a></div></div>
+</div>
+<div class="col-4 col-md-6"><img style="width:100%" src="{{x.Cover.url}}"></div>
+</div>
+{%endfor%}
+{%endif%}
+</div>
+<div class="col-2 col-md-2 col-sm-2">
+<div class="alert alert-info" style="width:100%">Other Recent Posts</div>
+</div>
+</div>
+
+<a href="https://dashboard.templerfx.com/login/sign_up/392946"><img src="https://dashboard.templerfx.com/banners/en/970-90.png"></a>
+
+
+{%endblock content%}
